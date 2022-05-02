@@ -1,15 +1,17 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.3'
+	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.experimental.aot' version '0.11.4'
 	id 'java'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
+	maven { url 'https://repo.spring.io/release' }
 }
 
 dependencies {
@@ -19,4 +21,11 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+bootBuildImage {
+	builder = "paketobuildpacks/builder:tiny"
+	environment = [
+		"BP_NATIVE_IMAGE" : "true"
+	]
 }
